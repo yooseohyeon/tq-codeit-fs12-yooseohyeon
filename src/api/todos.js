@@ -2,15 +2,24 @@
 const API_URL = "http://localhost:4000/todos";
 
 // 할 일 목록 조회 (페이지네이션 적용)
-export const fetchTodos = async () => {
-  const response = await fetch(API_URL);
+export const fetchTodos = async (options = {}) => {
+  const page = options.page || 1;
+  const limit = 5;
+  const response = await fetch(`${API_URL}?_page=${page}&_limit=${limit}`);
 
   if (!response.ok) {
     throw new Error("서버에서 데이터를 가져오는데 실패했습니다.");
   }
 
+  const totalCount = response.headers.get("X-Total-Count");
   const data = await response.json();
-  return data;
+
+  return {
+    todos: data,
+    totalCount: parseInt(totalCount || "0"),
+    totalPages: Math.ceil(parseInt(totalCount || "0") / limit),
+    currentPage: page,
+  };
 };
 
 // 할 일 상세 조회
