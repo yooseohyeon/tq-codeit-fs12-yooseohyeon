@@ -18,7 +18,7 @@ export default function TodoForm() {
     },
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
 
@@ -40,7 +40,7 @@ export default function TodoForm() {
           className="flex-grow p-2 border"
         />
         <button type="submit" className="px-4 py-2 bg-blue-500 text-white">
-          {isAdding ? "추가 중..." : "츄가"}
+          {isAdding ? "추가 중..." : "추가"}
         </button>
       </div>
     </form>
