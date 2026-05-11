@@ -15,6 +15,7 @@ export default function EnabledTestPage() {
   } = useQuery({
     queryKey: ["todos", "enabled-test"],
     queryFn: fetchTodos,
+    enabled: isEnabled,
   });
 
   return (
@@ -29,6 +30,7 @@ export default function EnabledTestPage() {
           </div>
 
           <button
+            onClick={() => setIsEnabled((prev) => !prev)}
             className={`px-4 py-2 rounded text-white ${
               isEnabled
                 ? "bg-red-500 hover:bg-red-600"
