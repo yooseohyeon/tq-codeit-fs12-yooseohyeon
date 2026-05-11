@@ -12,13 +12,10 @@ export default function CompletedPage() {
   } = useQuery({
     queryKey: ["todos"],
     queryFn: fetchTodos,
-    select: (todos) => todos.filter((todo) => todo.completed),
-<<<<<<< HEAD
+    select: (res) => res.todos.filter((todo) => todo.completed),
     meta: {
       name: "todos 완료목록",
     },
-=======
->>>>>>> 49857ea (feat: 실습5 - completed 페이지에 select로 완료된 todo만 필터링)
   });
 
   if (isPending)
@@ -29,7 +26,7 @@ export default function CompletedPage() {
   if (error)
     return (
       <div className="container mx-auto px-4 py-8 text-center text-red-500">
-        {error.message}
+        {error.message || "알 수 없는 오류가 발생했습니다"}
       </div>
     );
 
