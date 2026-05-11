@@ -1,29 +1,18 @@
 "use client";
 
-import { fetchInfiniteTodos } from "@/api/todos";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import TodoItem from "@/app/_components/TodoItem";
 import TodoForm from "@/app/_components/TodoForm";
+import useInfiniteTodos from "@/hooks/useInfiniteTodos";
 
 export default function LoadMorePage() {
   const {
-    data,
+    allTodos,
     fetchNextPage,
     hasNextPage, // getNextPageParam에 의해 결정됨
     isFetchingNextPage,
     status,
     error,
-  } = useInfiniteQuery({
-    queryKey: ["todos", "infinite"],
-    queryFn: fetchInfiniteTodos,
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-    initialPageParam: 1,
-  });
-
-  const allTodos =
-    data?.pages.reduce((acc, page) => {
-      return [...acc, ...page.todos];
-    }, []) || [];
+  } = useInfiniteTodos();
 
   return (
     <div className="container mx-auto px-4 py-8">
