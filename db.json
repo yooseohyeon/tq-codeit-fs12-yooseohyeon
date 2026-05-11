@@ -9,6 +9,11 @@
       "title": "json-server 데이터2",
       "completed": false,
       "id": 2
+    },
+    {
+      "title": "DDD",
+      "completed": false,
+      "id": 3
     }
   ]
 }

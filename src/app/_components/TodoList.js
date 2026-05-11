@@ -1,10 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import TodoItem from "@/app/_components/TodoItem";
+import { useQuery } from "@tanstack/react-query";
 import { fetchTodos } from "@/api/todos";
+import TodoItem from "@/app/_components/TodoItem";
 
-export default function TodoList({ todos }) {
+export default function TodoList() {
+  const {
+    data: todos = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["todos"],
+    queryFn: fetchTodos,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">로딩 중...</div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center text-red-500">
+        {error.message}
+      </div>
+    );
+  }
+
   return (
     <div className="border">
       {todos.length === 0 ? (

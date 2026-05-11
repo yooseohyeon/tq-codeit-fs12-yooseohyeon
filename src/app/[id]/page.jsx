@@ -8,6 +8,7 @@ export default function TodoDetailPage() {
   const { id } = useParams();
   const router = useRouter();
 
+  /* React Query: queryFn에서 Promise return → data 저장 */
   const {
     data: todo,
     isLoading,
