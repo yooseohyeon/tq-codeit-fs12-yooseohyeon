@@ -12,6 +12,7 @@ export default function CompletedPage() {
   } = useQuery({
     queryKey: ["todos"],
     queryFn: fetchTodos,
+    select: (todos) => todos.filter((todo) => todo.completed),
   });
 
   if (isPending)
@@ -22,7 +23,7 @@ export default function CompletedPage() {
   if (error)
     return (
       <div className="container mx-auto px-4 py-8 text-center text-red-500">
-        {error}
+        {error.message}
       </div>
     );
 
