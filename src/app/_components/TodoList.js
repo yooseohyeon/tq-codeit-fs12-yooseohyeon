@@ -28,8 +28,24 @@ export default function TodoList() {
 
   const toggleLikeMutation = useMutation({
     mutationFn: toggleTodoLike,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["todos"] });
+    onMutate: async (newTodo) => {
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+
+      const previousTodos = queryClient.getQueryData(["todos"]);
+
+      queryClient.setQueryData(["todos"], (old) =>
+        old.map((todo) =>
+          todo.id === newTodo.id ? { ...todo, liked: !todo.liked } : todo,
+        ),
+      );
+
+      return { previousTodos };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(["todos"], context.previousTodos);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
