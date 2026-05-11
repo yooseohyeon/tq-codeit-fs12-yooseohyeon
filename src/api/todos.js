@@ -27,7 +27,9 @@ export const fetchTodos = async ({ page = 1 } = {}) => {
 export const fetchInfiniteTodos = async ({ pageParam = 1 }) => {
   console.log("fetchInfiniteTodos 호출, 페이지:", pageParam);
   const limit = 5;
-  const response = await fetch(`${API_URL}?_page=${pageParam}&_limit=${limit}`);
+  const response = await fetch(
+    `${API_URL}?_page=${pageParam}&_limit=${limit}&_sort=id&_order=desc`,
+  );
 
   if (!response.ok) {
     throw new Error("서버에서 데이터를 가져오는데 실패했습니다.");
