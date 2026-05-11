@@ -13,9 +13,12 @@ export default function CompletedPage() {
     queryKey: ["todos"],
     queryFn: fetchTodos,
     select: (todos) => todos.filter((todo) => todo.completed),
+<<<<<<< HEAD
     meta: {
       name: "todos 완료목록",
     },
+=======
+>>>>>>> 49857ea (feat: 실습5 - completed 페이지에 select로 완료된 todo만 필터링)
   });
 
   if (isPending)
@@ -26,7 +29,7 @@ export default function CompletedPage() {
   if (error)
     return (
       <div className="container mx-auto px-4 py-8 text-center text-red-500">
-        {error}
+        {error.message}
       </div>
     );
 
