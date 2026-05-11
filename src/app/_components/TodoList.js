@@ -1,9 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import TodoItem from "@/app/_components/TodoItem";
 import { fetchTodos, toggleTodoStatus, toggleTodoLike } from "@/api/todos";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
 import Pagination from "@/components/Pagination";
 
 export default function TodoList() {
@@ -26,7 +26,7 @@ export default function TodoList() {
   const toggleMutation = useMutation({
     mutationFn: toggleTodoStatus,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["todos"] });
+      await queryClient.invalidateQueries({ queryKey: ["todos", currentPage] });
     },
   });
 
